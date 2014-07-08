@@ -1,0 +1,40 @@
+body {
+	background: url("http://www.desertmuseum.org/programs/images/Cargig_sdlg03.jpg") center;
+	background-size: cover ;
+
+}
+
+.header { 
+background-color: rgba(16, 87, 12, .75);
+padding-bottom: 20px
+
+
+
+
+
+
+}
+
+h1, h3{
+	margin-top: 0;
+	margin-bottom: 20px;
+	color: orange;
+	text-align: center;
+	
+}
+
+.dietary-buttons {
+	margin-left: 90px; 
+	width: 150px;
+	height: 30px;
+	margin-top: 20px
+
+}
+
+#item-total-price, #item-total-list{
+	background-color: gray;
+	font-weight: bold;
+	width: 150px;
+	height: 20px;
+	padding-left: 10px;
+}
