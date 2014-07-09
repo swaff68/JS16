@@ -3,21 +3,12 @@ $(document).on('ready', function() {
 });
 
 var itemsArr = [];
-
 var itemsArrDrinkPlate = [];
-
 var tempDietArray = [];
-
-// var itemsArrOrderMenu = [];
-
-
-// var itemsArrCustomer = [];
-
 var totalPlatesOrdered = [];
 var totalPlatesPrice = 0;
 
 var FoodItem = function(name, calories, vegan, glutenFree, citrusFree ) {
-
 
 	this.name = name
 	this.calories = calories
@@ -29,40 +20,7 @@ var FoodItem = function(name, calories, vegan, glutenFree, citrusFree ) {
 
 	this.toString = function(){
 		var outputString = this.name;
-		
-
-		// if(this.vegan){
-		// 	outputString += "Yes  ";
-		// }
-
-		// else {
-		// 	outputString += "No  ";
-		// }		
-
-		// outputString += " Gluten Free? ";
-
-		// if(this.glutenFree){
-		// 	outputString += "Yes  ";
-		// }
-
-		// else {
-		// 	outputString += "No  ";
-		// }		
-
-		// outputString += " Citrus Free? ";
-
-		// if(this.citrusFree){
-		// 	outputString += "Yes  ";
-		// }
-
-		// else {
-		// 	outputString += "No  ";
-		// }
-
-
-
 		return outputString;
-
 	}; 
 
 	this.createDOM = function(){
@@ -269,10 +227,6 @@ var cheese = new FoodItem('Cheese', 125, false, true, true);
 var rice = new FoodItem('Rice', 200, false, true, true);
 
 
-// var PrimeRib = new DrinkPlate("Prime Rib", "expensive meat", 21.00, [Beef, Lettuce, WheatCake]);
-// var SalmonHeads = new DrinkPlate("Salmon Heads", "tastes like chicken", 12, [Beef, Alcohol, WheatCake]);
-// var RugalaSalad = new DrinkPlate("Rugala Salad", "gots red stuff", 120, [Beef, Lettuce, WheatCake]);
-// var ArtichokeHearts = new DrinkPlate("Artichoke Hearts", "chokes ya", 1, [Beef, Lettuce, WheatCake]);
 var crazyBurrito = new DrinkPlate("Crazy Burro Burrito", "Its a gas", 15, [Beef, Lettuce, Tortillas, chicken, cheese, beans, rice, Guacamole, Alcohol]);
 var GuacamoleDip = new DrinkPlate("Guacamole Dip", "Green stuff", 3, [Lettuce, Guacamole]);
 var Margarita = new DrinkPlate("Margarita", "Makes you feel good", 5, [Alcohol]);
@@ -283,22 +237,10 @@ var beefTaco = new DrinkPlate("Beef Taco", "Makes you feel good", 9, [Tortillas,
 var beefBurrito = new DrinkPlate("Beef Burrito", "Makes you feel good", 12, [Tortillas, cheese, Beef, Lettuce, rice, beans]);
 var cheeseBurrito = new DrinkPlate("Cheese Burrito", "Makes you feel good", 6, [Tortillas, cheese, Lettuce, rice, beans]);
 
-// PrimeRib.isVegan();
-// var meatMenu = new OrderMenu( [ PrimeRib, SalmonHeads ]);
-// meatMenu.toStringMenu();
-
-// var veggieMenu = new OrderMenu([RugalaSalad, ArtichokeHearts]);
-// veggieMenu.toStringMenu();
-
 var dinnerMenu = new OrderMenu([crazyBurrito, chickenBurrito, beefBurrito, cheeseBurrito, chickenTaco, beefTaco, cheeseEnchilida, GuacamoleDip, Margarita]);
 
 var Miguels = new Resturant("Miguel's", "South of the Border Goodness", dinnerMenu)
 
-// var Wendys = new Resturant("Wendy's", "better than Booger King", veggieMenu);
-
-// console.log(Wendys.toString());
-
-// console.log(Miguels.toString());
 var mainMenuCreate = function(inRestaurant) {
 	$('body').empty();
 	var headerObject = $('<div class="header"><h1>Miguel\'s Resturant</h1><h3>South of the Border Goodness</h3><button class="dietary-buttons vegan">Vegan Meals</button><button class="dietary-buttons gluten">Gluten Free Meals</button><button class="dietary-buttons citrus">Citrus Free Meals</button><button class="reset">Reset Menu Preferences</button></div>');
