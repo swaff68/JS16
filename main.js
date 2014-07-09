@@ -123,7 +123,7 @@ var DrinkPlate = function (name, description, price, ingrediants){
 			if(citrus === false) {citrusStatus = false}
 		}
 		this.calorieCount = calorieCount;
-		var plateJqueryObject = $('<div class="drink-plate"><div class="item-name">' + this.name + '</div>' + '<div class="item-price">Price: $ ' + this.price + '</div>' + '<div>' + this.ingrediants.join(', ') + '</div><div>Calories: ' + calorieCount +  '</div></div>');
+		var plateJqueryObject = $('<div class="drink-plate"><div class="item-name"><strong>' + this.name + '</strong></div>' + '<div class="item-price">Price: $ ' + this.price + '</div>' + '<div>' + this.ingrediants.join(', ') + '</div><div>Calories: ' + calorieCount +  '</div></div>');
 		
 		// if(veganStatus) {
 		// 	outputString = "Yes";
@@ -216,6 +216,40 @@ var Customer = function (dietaryPreference){
 		return this.dietaryPreference;
 	}
 };
+
+var newArray = function(inArray) {
+	
+    var baseArray = [], numberOfValuesArray = [], prev;
+
+    inArray.sort();
+    for ( var i = 0; i < inArray.length; i++ ) {
+        if ( inArray[i] !== prev ) {
+            baseArray.push(inArray[i]);
+            numberOfValuesArray.push(1);
+        } else {
+            numberOfValuesArray[numberOfValuesArray.length-1]++;
+        }
+        prev = inArray[i];
+    }
+
+	var outArray = [];
+
+	for(var i=0; i < baseArray.length; i++) {
+		var foodItem = baseArray[ i ];
+		var foodItemNumber = numberOfValuesArray[ i ];
+
+		if (foodItemNumber > 1) {
+			var tempString = foodItemNumber + 'x ' + foodItem;
+		}
+		else {
+			var tempString = foodItem;
+		}
+		outArray.push(tempString);
+	}
+	return outArray;
+};
+
+
 var Beef = new FoodItem('Beef', 100, false, true, true);
 var Lettuce = new FoodItem('Lettuce', 110, true, true, true);
 var WheatCake = new FoodItem('WheatCake', 120, true, false, true);
@@ -258,15 +292,19 @@ var Miguels = new Resturant("Miguel's", "South of the Border Goodness", dinnerMe
 // console.log(Wendys.toString());
 
 // console.log(Miguels.toString());
+var mainMenuCreate = function() {
 
-var headerObject = $('<div class="header"><h1>Miguel\'s Resturant</h1><h3>South of the Border Goodness</h3><button class="dietary-buttons">Vegan Meals</button><button class="dietary-buttons">Gluten Meals</button><button class="dietary-buttons">Citrus Free Meals</button></div>');
+	var headerObject = $('<div class="header"><h1>Miguel\'s Resturant</h1><h3>South of the Border Goodness</h3><button class="dietary-buttons">Vegan Meals</button><button class="dietary-buttons">Gluten Free Meals</button><button class="dietary-buttons">Citrus Free Meals</button><button class="reset">Reset Menu Preferences</button></div>');
 
-$('body').append(headerObject);
+	$('body').append($('<div id="main">'));
+	$('#main').append(headerObject);
 
-var submitObject = $('<div class="final-order"><p id="item-total-list">Total Items: ' + totalPlatesOrdered.join(', ') + '</p><p id="item-total-price">Total Price: $ ' + totalPlatesPrice + '</p><button type="submit">Submit Order</button></div>');
+	var submitObject = $('<div class="final-order"><p id="item-total-list">Total Items: ' + newArray(totalPlatesOrdered).join(', ') + '</p><p id="item-total-price">Total Price: $ ' + totalPlatesPrice + '</p><button class="order-submit" type="submit">Submit Order</button></div>');
 
-$('body').append(submitObject);
-$('body').append(Miguels.createDOM());
+	$('#main').append(submitObject);
+	$('#main').append(Miguels.createDOM());
+
+};
 
 $(document).on('click', '.order-button', function() {
 	var numberPlates = prompt("Number to order: ");
@@ -282,11 +320,21 @@ $(document).on('click', '.order-button', function() {
 		totalPlatesOrdered.push(namePlate);
 	}
 
-	$('#item-total-list').text('Total Items: ' + totalPlatesOrdered.join(', '));
+	var outArray = newArray(totalPlatesOrdered);
+	$('#item-total-list').text('Total Items: ' + outArray.join(', '));
 	console.log('pricePlateValue: ' + pricePlateValue);
 
 
 });
+
+$(document).on('click', '.reset', function() {
+	$('body').empty();
+	mainMenuCreate();
+	alert('reset fired');
+
+});
+
+mainMenuCreate();
 
 
 

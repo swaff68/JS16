@@ -6,12 +6,7 @@ body {
 
 .header { 
 background-color: rgba(16, 87, 12, .75);
-padding-bottom: 20px
-
-
-
-
-
+padding-bottom: 20px;
 
 }
 
@@ -24,7 +19,7 @@ h1, h3{
 }
 
 .dietary-buttons {
-	margin-left: 90px; 
+	margin-left: 180px; 
 	width: 150px;
 	height: 30px;
 	margin-top: 20px
@@ -34,7 +29,24 @@ h1, h3{
 #item-total-price, #item-total-list{
 	background-color: gray;
 	font-weight: bold;
-	width: 150px;
+	width: 100%;
 	height: 20px;
 	padding-left: 10px;
+}
+
+.order-submit{
+
+	margin-top: 20px;
+	background-color:green;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.drink-plate{
+	background-color: rgba(245, 151, 0, .85);
+	width: 35%;
+	float: left;
+	height: 180px;
+	margin: 20px;
+	color: white;
 }
