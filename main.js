@@ -6,9 +6,10 @@ var itemsArr = [];
 
 var itemsArrDrinkPlate = [];
 
+var tempDietArray = [];
+
 // var itemsArrOrderMenu = [];
 
-var itemsArrResturant = [];
 
 // var itemsArrCustomer = [];
 
@@ -123,7 +124,7 @@ var DrinkPlate = function (name, description, price, ingrediants){
 			if(citrus === false) {citrusStatus = false}
 		}
 		this.calorieCount = calorieCount;
-		var plateJqueryObject = $('<div class="drink-plate"><div class="item-name"><strong>' + this.name + '</strong></div>' + '<div class="item-price">Price: $ ' + this.price + '</div>' + '<div>' + this.ingrediants.join(', ') + '</div><div>Calories: ' + calorieCount +  '</div></div>');
+		var plateJqueryObject = $('<div class="drink-plate"><div class="item-name"><strong>' + this.name + '</strong></div>' + '<div class="item-price">Price: $ ' + this.price + '</div>' + '<div>' + this.ingrediants.join(', ') + '</div><div>Calories: ' + calorieCount +  '</div></div>16');
 		
 		// if(veganStatus) {
 		// 	outputString = "Yes";
@@ -193,7 +194,8 @@ var Resturant = function(name, description, menu){
 		this.name = name
 		this.description = description
 		this.menu = menu
-		itemsArrResturant.push(this);
+		this.resturantList = [];
+		this.resturantList.push(this);
 
 
 	this.toString = function(){
@@ -249,6 +251,11 @@ var newArray = function(inArray) {
 	return outArray;
 };
 
+var searchArrayForObjectProperty = function(inArray, inProp, inId) {
+	var outputArray = $.grep(inArray, function(el) { return el[ inProp ] === inId; });
+	return outputArray;
+};
+
 
 var Beef = new FoodItem('Beef', 100, false, true, true);
 var Lettuce = new FoodItem('Lettuce', 110, true, true, true);
@@ -292,9 +299,9 @@ var Miguels = new Resturant("Miguel's", "South of the Border Goodness", dinnerMe
 // console.log(Wendys.toString());
 
 // console.log(Miguels.toString());
-var mainMenuCreate = function() {
-
-	var headerObject = $('<div class="header"><h1>Miguel\'s Resturant</h1><h3>South of the Border Goodness</h3><button class="dietary-buttons">Vegan Meals</button><button class="dietary-buttons">Gluten Free Meals</button><button class="dietary-buttons">Citrus Free Meals</button><button class="reset">Reset Menu Preferences</button></div>');
+var mainMenuCreate = function(inRestaurant) {
+	$('body').empty();
+	var headerObject = $('<div class="header"><h1>Miguel\'s Resturant</h1><h3>South of the Border Goodness</h3><button class="dietary-buttons vegan">Vegan Meals</button><button class="dietary-buttons gluten">Gluten Free Meals</button><button class="dietary-buttons citrus">Citrus Free Meals</button><button class="reset">Reset Menu Preferences</button></div>');
 
 	$('body').append($('<div id="main">'));
 	$('#main').append(headerObject);
@@ -302,9 +309,40 @@ var mainMenuCreate = function() {
 	var submitObject = $('<div class="final-order"><p id="item-total-list">Total Items: ' + newArray(totalPlatesOrdered).join(', ') + '</p><p id="item-total-price">Total Price: $ ' + totalPlatesPrice + '</p><button class="order-submit" type="submit">Submit Order</button></div>');
 
 	$('#main').append(submitObject);
-	$('#main').append(Miguels.createDOM());
+	var tempDOMElement = inRestaurant.createDOM();
+	$('#main').append(tempDOMElement);
 
 };
+
+var outputDietaryMenu = function(inProp, inValue) {
+
+	tempDietArray.length = 0;
+	for(var i=0; i<itemsArrDrinkPlate.length; i++) {
+		var tempArray = itemsArrDrinkPlate[ i ].ingrediants;
+		var tempFoodItems = searchArrayForObjectProperty(tempArray, inProp, inValue);
+		console.log('')
+		console.log('tempFoodItems: ' + tempFoodItems);
+		if(tempFoodItems.length === tempArray.length) {
+			tempDietArray.push(itemsArrDrinkPlate[ i ]);
+			console.log('tempDietArray: ' + tempDietArray);
+		}
+	}
+	var tempMenu = new OrderMenu(tempDietArray);
+	var tempMiguels = new Resturant("Miguels", "South of the Border Goodeness", tempMenu);
+	mainMenuCreate(tempMiguels);	
+};
+
+$(document).on('click', '.vegan', function() {
+	outputDietaryMenu('vegan', true);
+});
+
+$(document).on('click', '.citrus', function() {
+	outputDietaryMenu('citrusFree', true);
+});
+
+$(document).on('click', '.gluten', function() {
+	outputDietaryMenu('glutenFree', true);
+});
 
 $(document).on('click', '.order-button', function() {
 	var numberPlates = prompt("Number to order: ");
@@ -328,13 +366,12 @@ $(document).on('click', '.order-button', function() {
 });
 
 $(document).on('click', '.reset', function() {
-	$('body').empty();
-	mainMenuCreate();
+	mainMenuCreate(Miguels);
 	alert('reset fired');
 
 });
 
-mainMenuCreate();
+mainMenuCreate(Miguels);
 
 
 
